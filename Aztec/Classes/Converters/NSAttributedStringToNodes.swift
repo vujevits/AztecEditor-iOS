@@ -7,6 +7,8 @@ import libxml2
 //
 class NSAttributedStringToNodes: Converter {
 
+    // MARK: - Conversion
+
     /// Converts an Attributed String Instance into it's HTML Tree Representation.
     ///
     /// - Parameters:
@@ -667,9 +669,8 @@ private extension NSAttributedStringToNodes {
     }
 }
 
+// MARK: - Leaf Nodes: Allocation
 
-// MARK: - Leaf Nodes: Alloc'ation
-//
 private extension NSAttributedStringToNodes {
 
     /// Extract all of the Leaf Nodes contained within an Attributed String. We consider the following as Leaf:
@@ -703,31 +704,53 @@ private extension NSAttributedStringToNodes {
         return nodes.isEmpty ? processTextNodes(from: attrString.string) : nodes
     }
 
-    /// Converts a Line Attachment into it's representing nodes.
+    /// Loads an element stored using the specified `representationKey` in the provided attributes.
+    /// If no representation of the element is found within the attributes, an empty element
+    /// of the default type will be returned instead.
     ///
-    private func processLineAttachment(from attrString: NSAttributedString) -> ElementNode? {
-        guard attrString.attribute(NSAttachmentAttributeName, at: 0, effectiveRange: nil) is LineAttachment else {
-            return nil
-        }
+    /// - Parameters:
+    ///     - representationKey: the key used to store the `HTMLRepresentation`.
+    ///     - attributes: the attributes where the `HTMLRepresentation` object was stored.
+    ///     - defaultType: the default type in case no representation was stored, and a new element
+    ///             must be created.
+    ///
+    /// - Returns: the requested element.
+    ///
+    private func loadElement(
+        storedUsing representationKey: String,
+        in attributes: [String:Any],
+        defaultTo defaultType: StandardElementType) -> ElementNode {
 
         let element: ElementNode
-        let range = attrString.rangeOfEntireString
 
-        if let representation = attrString.attribute(HRFormatter.htmlRepresentationKey, at: 0, longestEffectiveRange: nil, in: range) as? HTMLRepresentation,
+        if let representation = attributes[representationKey] as? HTMLRepresentation,
             case let .element(representationElement) = representation {
 
             element = representationElement.toElementNode()
         } else {
-            element = ElementNode(type: .hr)
+            element = ElementNode(type: defaultType)
+        }
+        
+        return element
+    }
+
+    /// Converts a Line Attachment into it's representing nodes.
+    ///
+    private func processLineAttachment(from attrString: NSAttributedString) -> ElementNode? {
+
+        let attributes = attrString.attributes(at: 0, effectiveRange: nil)
+
+        guard attributes[NSAttachmentAttributeName] is LineAttachment else {
+            return nil
         }
 
-        return element
+        return loadElement(storedUsing: HRFormatter.htmlRepresentationKey, in: attributes, defaultTo: .hr)
     }
 
 
     /// Converts a Comment Attachment into it's representing nodes.
     ///
-    private func processCommentAttachment(from attrString: NSAttributedString) -> Node? {
+    private func processCommentAttachment(from attrString: NSAttributedString) -> CommentNode? {
         guard let attachment = attrString.attribute(NSAttachmentAttributeName, at: 0, effectiveRange: nil) as? CommentAttachment else {
             return nil
         }
@@ -760,24 +783,17 @@ private extension NSAttributedStringToNodes {
         return [firstChild]
     }
 
-
     /// Converts an Image Attachment into it's representing nodes.
     ///
     private func processImageAttachment(from attrString: NSAttributedString) -> ElementNode? {
-        guard let attachment = attrString.attribute(NSAttachmentAttributeName, at: 0, effectiveRange: nil) as? ImageAttachment else {
+
+        let attributes = attrString.attributes(at: 0, effectiveRange: nil)
+
+        guard let attachment = attributes[NSAttachmentAttributeName] as? ImageAttachment else {
             return nil
         }
 
-        let element: ElementNode
-        let range = attrString.rangeOfEntireString
-
-        if let representation = attrString.attribute(ImageFormatter.htmlRepresentationKey, at: 0, longestEffectiveRange: nil, in: range) as? HTMLRepresentation,
-            case let .element(representationElement) = representation {
-
-            element = representationElement.toElementNode()
-        } else {
-            element = ElementNode(type: .img)
-        }
+        let element = loadElement(storedUsing: HRFormatter.htmlRepresentationKey, in: attributes, defaultTo: .img)
 
         if let attribute = imageSourceAttribute(from: attachment) {
             element.updateAttribute(named: attribute.name, value: attribute.value)
