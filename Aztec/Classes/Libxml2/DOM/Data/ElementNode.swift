@@ -43,16 +43,6 @@ class ElementNode: Node {
         }
     }
 
-    // MARK - Hashable
-
-    override public var hashValue: Int {
-        let attributesHash = attributes.reduce(0) { (result, attribute) in
-            return result ^ attribute.hashValue
-        }
-
-        return name.hashValue ^ attributesHash
-    }
-
     
     // MARK: - Initializers
 

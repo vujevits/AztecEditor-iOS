@@ -31,12 +31,6 @@ class Attribute: NSObject, CustomReflectable {
         }
     }
 
-    // MARK - Hashable
-
-    override var hashValue: Int {
-        return name.hashValue ^ value.hashValue()
-    }
-
     // MARK: - NSCoding
 
     public required convenience init?(coder aDecoder: NSCoder) {
@@ -49,16 +43,6 @@ class Attribute: NSObject, CustomReflectable {
         self.init(name: name, string: valueAsString)
     }
 
-    // MARK: - Equatable
-
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let rhs = object as? Attribute else {
-            return false
-        }
-
-        return name == rhs.name && value == rhs.value
-    }
-
     // MARK: - String Representation
 
     func toString() -> String {
@@ -69,6 +53,26 @@ class Attribute: NSObject, CustomReflectable {
         }
 
         return result
+    }
+}
+
+extension Attribute {
+
+    // MARK - Hashable
+
+    override var hashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+
+    // MARK: - Equatable
+
+    /// Equality in Nodes means both nodes are exactly the same instance.  This class doesn't care about
+    /// similar nodes having the same fields.
+    ///
+    /// This is particularly important when doing lookups, and using Nodes as dictionary keys.
+    ///
+    static func ==(lhs: Attribute, rhs: Attribute) -> Bool {
+        return lhs === rhs
     }
 }
 

@@ -50,16 +50,4 @@ class TextNode: Node {
     func text() -> String {
         return contents
     }
-
-    // MARK - Hashable
-
-    override public var hashValue: Int {
-        return name.hashValue ^ contents.hashValue
-    }
-
-    // MARK: - Node Equatable
-
-    static func ==(lhs: TextNode, rhs: TextNode) -> Bool {
-        return lhs.name == rhs.name && lhs.contents == rhs.contents
-    }
 }

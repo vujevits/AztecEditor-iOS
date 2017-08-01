@@ -3,7 +3,7 @@ import Foundation
 
 /// Base class for all node types.
 ///
-class Node: Equatable, CustomReflectable, Hashable {
+class Node: CustomReflectable {
     
     let name: String
     
@@ -27,13 +27,6 @@ class Node: Equatable, CustomReflectable, Hashable {
         get {
             return Mirror(self, children: ["name": name, "parent": parent as Any])
         }
-    }
-
-
-    // MARK - Hashable
-
-    public var hashValue: Int {
-        return name.hashValue
     }
 
     // MARK: - Initializers
@@ -146,9 +139,20 @@ class Node: Equatable, CustomReflectable, Hashable {
     }
 }
 
+extension Node: Hashable {
 
-// MARK: - Node Equatable
+    // MARK - Hashable
 
-func ==(lhs: Node, rhs: Node) -> Bool {
-    return lhs.name == rhs.name
+    public var hashValue: Int {
+        return ObjectIdentifier(self).hashValue
+    }
+
+    /// Equality in Nodes means both nodes are exactly the same instance.  This class doesn't care about
+    /// similar nodes having the same fields.
+    ///
+    /// This is particularly important when doing lookups, and using Nodes as dictionary keys.
+    ///
+    static func ==(lhs: Node, rhs: Node) -> Bool {
+        return lhs === rhs
+    }
 }
