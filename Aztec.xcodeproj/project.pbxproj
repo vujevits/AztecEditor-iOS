@@ -32,7 +32,6 @@
 		599F25521D8BC9A1002871D6 /* MediaAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599F25301D8BC9A1002871D6 /* MediaAttachment.swift */; };
 		599F25531D8BC9A1002871D6 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599F25311D8BC9A1002871D6 /* TextStorage.swift */; };
 		599F25541D8BC9A1002871D6 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599F25321D8BC9A1002871D6 /* TextView.swift */; };
-		599F255C1D8BCDB4002871D6 /* Gridicons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 599F255B1D8BCDB4002871D6 /* Gridicons.framework */; };
 		B50CE7321F1FA6260018CAA1 /* NSAttributedString+Strip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50CE7311F1FA6260018CAA1 /* NSAttributedString+Strip.swift */; };
 		B50CE7341F1FABA00018CAA1 /* content.html in Resources */ = {isa = PBXBuildFile; fileRef = B50CE7331F1FABA00018CAA1 /* content.html */; };
 		B524228D1F30C039002E7C6C /* HTMLDiv.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524228C1F30C039002E7C6C /* HTMLDiv.swift */; };
@@ -337,7 +336,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				599F255C1D8BCDB4002871D6 /* Gridicons.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,7 +923,7 @@
 					5951CB8D1D8BC93600E1866F = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = PZYM8XX95Q;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 					};
 					5951CB961D8BC93600E1866F = {
@@ -935,6 +933,7 @@
 					};
 					E8CE3EFE1F213AAA003254AB = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1195,7 +1194,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1248,7 +1247,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1358,6 +1357,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Debug;
 		};
@@ -1369,6 +1369,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = "Release-Alpha";
 		};
@@ -1380,6 +1381,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Release;
 		};
@@ -1391,6 +1393,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Profiling;
 		};
@@ -1442,7 +1445,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1548,7 +1551,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0.1;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
